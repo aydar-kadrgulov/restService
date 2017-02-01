@@ -10,7 +10,7 @@ repositories {
 }
 
 war {
-    baseName = 'alameda-content-manager-ws'
+    baseName = 'rest-ws'
     manifest {
         attributes << [
                 'Build-by': System.getProperty('user.name'),
