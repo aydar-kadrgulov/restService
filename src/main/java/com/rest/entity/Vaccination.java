@@ -2,16 +2,17 @@ package com.rest.entity;
 
 import java.util.Date;
 
-/**
- * Created by home on 31.01.2017.
- */
 public class Vaccination {
+    private long id;
     private String drugName;
     private Date date;
 
-    public Vaccination(String drugName, Date date) {
-        this.drugName = drugName;
-        this.date = date;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDrugName() {
@@ -28,5 +29,14 @@ public class Vaccination {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Vaccination{" +
+                "id=" + id +
+                ", drugName='" + drugName + '\'' +
+                ", date=" + date +
+                '}';
     }
 }

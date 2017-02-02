@@ -1,61 +1,61 @@
 package com.rest.controller;
 
 import com.rest.entity.Patient;
+import com.rest.entity.Vaccination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-/**
- * Created by home on 31.01.2017.
- */
 @RestController
 public class PatientController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-//    @RequestMapping(value="/getPatient", method = RequestMethod.GET)
-//    public String  getPatient(@PathVariable String name){
-//        return "Getting " + name;
-//    }
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    // этот метод будет принимать время методом GET и на его основе
-    // отвечать клиенту
-    @RequestMapping(value= "/{snils}", method = RequestMethod.GET)
-    @ResponseBody
-    public Patient getMyData(@PathVariable String snils) {
-        logger.info("get request");
-        return new Patient("firstName", "name", "lastName", new Date(), Patient.FEMALE, snils);
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
+        logger.info("create new patient: " + patient.toString());
+        return new ResponseEntity<>(patient, HttpStatus.OK);
     }
 
-    // этот метод будет принимать Объект MyDataObject и отдавать его клиенту
-    // обычно метод PUT используют для сохранения либо для обновления объекта
+    @RequestMapping(value = "/{snils}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Patient> getPatient(@PathVariable String snils) {
+        logger.info("get patient by snils : " + snils);
+        Patient patient = new Patient();
+        patient.setSnils(snils);
+        return new ResponseEntity<>(patient, HttpStatus.OK);
+    }
+
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseBody
-    public Patient putMyData(@RequestBody Patient patient) {
-        logger.info("put request");
-        logger.info(patient.toString());
-        return patient;
+    public ResponseEntity<Patient> update(@RequestBody Patient patient) {
+        logger.info("update patient : " + patient.toString());
+        patient.setName("newName" + new Date().toString());
+        return new ResponseEntity<>(patient, HttpStatus.OK);
     }
 
-    // этот метод будет методом POST отдавать объект MyDataObject
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/{snils}", method = RequestMethod.DELETE)
     @ResponseBody
-    public Patient postMyData() {
-        logger.info("post request");
-        Patient patient = new Patient("firstName", "name", "lastName", new Date(), Patient.FEMALE, "snils");
-        logger.info(patient.toString());
-        return patient;
+    public ResponseEntity<String> deletePatient(@PathVariable String snils) {
+        logger.info("delete patient by snils : " + snils);
+        Patient patient = new Patient();
+        patient.setSnils(snils);
+        return new ResponseEntity<>("deleted", HttpStatus.OK);
     }
 
-    // этот метод будет принимать время методом DELETE
-    // и на его основе можно удалит объект
-    @RequestMapping(value= "/{snils}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public Patient deleteMyData(@PathVariable String snils) {
-        logger.info("delete request");
-        Patient patient = new Patient("firstName", "name", "lastName", new Date(), Patient.FEMALE, snils);
-        logger.info(patient.toString());
-        return patient;
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ResponseEntity<List<Patient>> getPatients() {
+        logger.info("get all patients");
+        List<Patient> patiens = new ArrayList<>();
+        patiens.add(new Patient());
+        patiens.add(new Patient());
+        return new ResponseEntity<>(patiens, HttpStatus.OK);
     }
+
 }
