@@ -3,7 +3,6 @@ package com.rest.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
-import java.util.List;
 
 public class Patient {
     public static final String FEMALE = "female";

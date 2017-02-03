@@ -2,9 +2,6 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'war'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 repositories {
     mavenCentral()
 }
@@ -39,6 +36,9 @@ dependencies {
     compile("org.slf4j:slf4j-api:${slf4jVersion}")
     compile("org.slf4j:jcl-over-slf4j:${slf4jVersion}")
     compile("ch.qos.logback:logback-classic:${logbackVersion}")
+
+    //SQLite
+    compile("org.xerial:sqlite-jdbc:3.14.2.1")
 
     // Servlet
     providedCompile("javax.servlet:javax.servlet-api:${servletVersion}")

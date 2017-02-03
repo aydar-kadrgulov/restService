@@ -1,7 +1,6 @@
 package com.rest.controller;
 
 import com.rest.entity.Patient;
-import com.rest.entity.Vaccination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
