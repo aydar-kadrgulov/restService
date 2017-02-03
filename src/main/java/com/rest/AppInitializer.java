@@ -1,7 +1,7 @@
 package com.rest;
 
-import com.rest.config.AppConfig;
-import com.rest.config.WebConfig;
+import com.rest.configs.AppConfig;
+import com.rest.configs.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {

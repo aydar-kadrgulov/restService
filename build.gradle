@@ -2,48 +2,51 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'war'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 repositories {
+//    jcenter()
     mavenCentral()
 }
 
 war {
     baseName = 'rest-ws'
-    manifest {
-        attributes << [
-                'Build-by': System.getProperty('user.name'),
-                'JDK-version': System.getProperty('java.version'),
-                'JDK-vendor': System.getProperty('java.vendor'),
-                'Build-date': new Date(),
-                'Implementation-Version': System.getProperty('build.number') ?: 'undefined']
-    }
 }
 
 def springVersion = '4.3.6.RELEASE'
 def jacksonVersion = '2.8.3'
 def slf4jVersion = '1.7.21'
 def logbackVersion = '1.1.7'
-def servletVersion= '3.1.0'
+def servletVersion = '3.1.0'
+//def postgresqlVersion = '9.4.1208-jdbc42-atlassian-hosted'
+def junitVersion = '4.11'
+
 dependencies {
     //spring
-    compile "org.springframework:spring-webmvc:$springVersion"
+    compile("org.springframework:spring-webmvc:$springVersion")
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.11.0.RELEASE'
 
-    // JSON
+    //JSON
     compile("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
     compile("com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
     compile("com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}")
 
-    // Logging
+    //Logging
     compile("org.slf4j:slf4j-api:${slf4jVersion}")
     compile("org.slf4j:jcl-over-slf4j:${slf4jVersion}")
     compile("ch.qos.logback:logback-classic:${logbackVersion}")
 
-    //SQLite
-    compile("org.xerial:sqlite-jdbc:3.14.2.1")
+    //Postgresql
+//    compile("postgresql:postgresql:${postgresqlVersion}")
+    compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
 
-    // Servlet
+
+
+    //Servlet
     providedCompile("javax.servlet:javax.servlet-api:${servletVersion}")
 
-    testCompile 'junit:junit:4.11'
+    testCompile("junit:junit:${junitVersion}")
 }
 
 task wrapper(type: Wrapper) {
@@ -51,6 +54,6 @@ task wrapper(type: Wrapper) {
 }
 
 jar {
-    baseName = 'rest-service'
-    version =  '0.1.0'
+    baseName = 'rest-services'
+    version = '0.1.0'
 }
