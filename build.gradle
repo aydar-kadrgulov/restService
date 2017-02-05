@@ -6,8 +6,8 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-//    jcenter()
-    mavenCentral()
+    jcenter()
+//    mavenCentral()
 }
 
 war {
@@ -15,17 +15,19 @@ war {
 }
 
 def springVersion = '4.3.6.RELEASE'
+def springDataVersion = '1.11.0.RELEASE'
 def jacksonVersion = '2.8.3'
 def slf4jVersion = '1.7.21'
 def logbackVersion = '1.1.7'
 def servletVersion = '3.1.0'
-//def postgresqlVersion = '9.4.1208-jdbc42-atlassian-hosted'
+def postgresqlVersion = '9.4.1208-jdbc42-atlassian-hosted'
 def junitVersion = '4.11'
 
 dependencies {
     //spring
     compile("org.springframework:spring-webmvc:$springVersion")
-    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.11.0.RELEASE'
+
+    compile "org.springframework.data:spring-data-jpa:${springDataVersion}"
 
     //JSON
     compile("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
@@ -38,10 +40,7 @@ dependencies {
     compile("ch.qos.logback:logback-classic:${logbackVersion}")
 
     //Postgresql
-//    compile("postgresql:postgresql:${postgresqlVersion}")
-    compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
-
-
+    compile("postgresql:postgresql:${postgresqlVersion}")
 
     //Servlet
     providedCompile("javax.servlet:javax.servlet-api:${servletVersion}")

@@ -24,7 +24,7 @@ public class PatientController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
         logger.info("create new patient: " + patient.toString());
-        patientService.createPatient(patient);
+        patient = patientService.createPatient(patient);
         return new ResponseEntity<>(patient, HttpStatus.OK);
     }
 
