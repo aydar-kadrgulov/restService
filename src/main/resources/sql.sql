@@ -1,18 +1,19 @@
 CREATE TABLE patients
 (
 ID  SERIAL PRIMARY KEY,
-firstName CHAR(50) NOT NULL,
-patientName CHAR(50) NOT NULL,
-lastName CHAR(50),
+firstName VARCHAR(50) NOT NULL,
+patientName VARCHAR(50) NOT NULL,
+lastName VARCHAR(50),
+gender boolean not null,
 birthDate date NOT NULL,
-snils CHAR(11) NOT NULL,
+snils VARCHAR(11) NOT NULL,
 CONSTRAINT snils_unique UNIQUE (snils)
 );
 
 CREATE TABLE vaccinations
 (
 ID SERIAL PRIMARY KEY,
-drugName char(50) NOT NULL,
+drugName VARCHAR (50) NOT NULL,
 eventDate date NOT NULL,
 patient_id integer REFERENCES patients (id)
 );

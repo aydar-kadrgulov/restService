@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -32,8 +30,7 @@ public class PatientController {
     @ResponseBody
     public ResponseEntity<Patient> getPatient(@PathVariable String snils) {
         logger.info("get patient by snils : " + snils);
-        Patient patient = new Patient();
-        patient.setSnils(snils);
+        Patient patient = patientService.getPatientBySnils(snils);
         return new ResponseEntity<>(patient, HttpStatus.OK);
     }
 
@@ -41,25 +38,29 @@ public class PatientController {
     @ResponseBody
     public ResponseEntity<Patient> update(@RequestBody Patient patient) {
         logger.info("update patient : " + patient.toString());
-        patient.setName("newName" + new Date().toString());
-        return new ResponseEntity<>(patient, HttpStatus.OK);
+        Patient oldPatient = patientService.getPatientById(patient.getId());
+        if (patient.getFirstName()!= null) oldPatient.setFirstName(patient.getFirstName());
+        if (patient.getName()!= null) oldPatient.setName(patient.getName());
+        if (patient.getLastName()!= null) oldPatient.setLastName(patient.getLastName());
+        if (patient.getBirthDate() != null) oldPatient.setBirthDate(patient.getBirthDate());
+        if (patient.getGender() != null) oldPatient.setGender(patient.getGender());
+        if (patient.getSnils()!= null) oldPatient.setSnils(patient.getSnils());
+        patientService.updatePatient(oldPatient);
+        return new ResponseEntity<>(oldPatient, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{snils}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<String> deletePatient(@PathVariable String snils) {
         logger.info("delete patient by snils : " + snils);
-        Patient patient = new Patient();
-        patient.setSnils(snils);
+        patientService.deletePatientsBySnils(snils);
         return new ResponseEntity<>("deleted", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Patient>> getPatients() {
         logger.info("get all patients");
-        List<Patient> patiens = new ArrayList<>();
-        patiens.add(new Patient());
-        patiens.add(new Patient());
+        List<Patient> patiens = patientService.getPatients();
         return new ResponseEntity<>(patiens, HttpStatus.OK);
     }
 

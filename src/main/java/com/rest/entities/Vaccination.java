@@ -6,6 +6,7 @@ public class Vaccination {
     private long id;
     private String drugName;
     private Date date;
+    private long patientId;
 
     public long getId() {
         return id;
@@ -31,12 +32,21 @@ public class Vaccination {
         this.date = date;
     }
 
+    public long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(long patientId) {
+        this.patientId = patientId;
+    }
+
     @Override
     public String toString() {
         return "Vaccination{" +
                 "id=" + id +
                 ", drugName='" + drugName + '\'' +
                 ", date=" + date +
+                ", patientId=" + patientId +
                 '}';
     }
 }

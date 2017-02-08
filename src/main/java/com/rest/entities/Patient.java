@@ -5,13 +5,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class Patient {
+
+    public enum Gender {
+        MALE, FEMALE
+    }
     private long id;
     private String firstName;
     private String name;
     private String lastName;
     @JsonFormat(pattern = "dd.MM.yyyy")
     private Date birthDate;
-    private String sex;
+    private Gender gender;
     private String snils;
 
     public long getId() {
@@ -54,20 +58,20 @@ public class Patient {
         this.birthDate = birthDate;
     }
 
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
     public String getSnils() {
         return snils;
     }
 
     public void setSnils(String snils) {
         this.snils = snils;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     @Override
@@ -78,7 +82,7 @@ public class Patient {
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthDate=" + birthDate +
-                ", sex='" + sex + '\'' +
+                ", gender=" + gender +
                 ", snils='" + snils + '\'' +
                 '}';
     }
